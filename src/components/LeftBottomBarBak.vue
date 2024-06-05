@@ -26,30 +26,30 @@
     let _rawData = props.data
     console.log("leftBottomBar->_rawData:", _rawData)
 
-    // function randomData() {
-    //     now = new Date(+now + oneDay);
-    //     value = value + Math.random() * 21 - 10;
-    //     return {
-    //         name: now.toString(),
-    //         value: [
-    //             [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'),
-    //             Math.round(value)
-    //         ]
-    //     };
-    // }
+    function randomData() {
+        now = new Date(+now + oneDay);
+        value = value + Math.random() * 21 - 10;
+        return {
+            name: now.toString(),
+            value: [
+                [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'),
+                Math.round(value)
+            ]
+        };
+    }
 
     let data = [];
     let now = new Date(1997, 9, 3);
     let oneDay = 24 * 3600 * 1000;
     let value = Math.random() * 1000;
 
-    data = props.data
+    // data = props.data
 
     console.log("data->>" + data)
 
-    // for (var i = 0; i < 1000; i++) {
-    //     data.push(randomData());
-    // }
+    for (var i = 0; i < 1000; i++) {
+        data.push(randomData());
+    }
 
     console.log("data->", data)
 

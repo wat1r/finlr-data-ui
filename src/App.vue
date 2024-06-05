@@ -4,8 +4,8 @@
         <div class="flex-1  mt-2 p-1 flex flex-col">
             <LeftTopBar class="h-1/2 box-border pb-1  mr-2 md-2 bg-opacity-50 bg-slate-800" v-if="leftTop"
                         :data="leftTop.leftTopData"/>
-            <LeftBottomBar class="h-1/2 box-border pb-1  mr-2 mt-2 bg-opacity-50 bg-slate-800" v-if="leftBottom"
-                           :data="leftBottom.leftBottomData"/>
+<!--            <LeftBottomBar class="h-1/2 box-border pb-1  mr-2 mt-2 bg-opacity-50 bg-slate-800" v-if="leftBottom"-->
+<!--                           :data="leftBottom.leftBottomData"/>-->
             <!--			<Relation class="h-1/5" :data="data.relationData" />-->
         </div>
         <!--        <div class="w-1/3 mr-2 flex flex-col">-->

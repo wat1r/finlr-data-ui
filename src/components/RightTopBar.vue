@@ -24,11 +24,11 @@
 
     let _rawData = props.data.servers
 
-    console.log(_rawData)
-
-    console.log("typeof _rawData" + typeof _rawData)
-    console.log("is _rawData Array?" + Array.isArray(_rawData))
-    console.log("_rawData" + _rawData)
+    // console.log(_rawData)
+    //
+    // console.log("typeof _rawData" + typeof _rawData)
+    // console.log("is _rawData Array?" + Array.isArray(_rawData))
+    // console.log("_rawData" + _rawData)
 
 
     const target = ref(null)

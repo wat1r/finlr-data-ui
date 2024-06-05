@@ -19,6 +19,15 @@ export const getDataLeftTop = () => {
     })
 }
 
+
+export const getDataLeftBottom = () => {
+    console.log('--------getDataLeftBottom--------')
+    return request({
+        url: '/finlr/data/leftBottom',
+        method: "post"
+    })
+}
+
 export const getDataRightTop = () => {
     console.log('--------getDataRightTop--------')
     return request({

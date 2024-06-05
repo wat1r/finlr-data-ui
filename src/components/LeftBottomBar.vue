@@ -23,8 +23,8 @@
 
 
 
-    let _rawData = props.data
-    console.log("leftBottomBar->_rawData:", _rawData)
+    // let _rawData = props.data
+    // console.log("leftBottomBar->_rawData:", _rawData)
 
     // function randomData() {
     //     now = new Date(+now + oneDay);
@@ -42,10 +42,8 @@
     let now = new Date(1997, 9, 3);
     let oneDay = 24 * 3600 * 1000;
     let value = Math.random() * 1000;
-
     data = props.data
-
-    console.log("data->>" + data)
+    // console.log("data->>" + data)
 
     // for (var i = 0; i < 1000; i++) {
     //     data.push(randomData());

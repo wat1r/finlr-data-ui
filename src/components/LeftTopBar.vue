@@ -43,12 +43,12 @@
             },
             yAxis: {
                 type: 'category',
-                data: yAxis,
-                // data: ['A', 'B', 'C', 'D', 'E'],
+                // data: yAxis,
+                data: ['A', 'B', 'C', 'D', 'E'],
                 inverse: true,
                 animationDuration: 300,
                 animationDurationUpdate: 300,
-                max: 2 // only the largest 3 bars will be displayed
+                max: 4 // only the largest 3 bars will be displayed
             },
             series: [
                 {

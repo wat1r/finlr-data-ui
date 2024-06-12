@@ -71,8 +71,8 @@
     leftBottomData()
 
 
-    // setInterval(() => {
-    //     loadData()
-    // }, 3000)
+    setInterval(() => {
+        leftBottomData()
+    }, 3000)
 
 </script>

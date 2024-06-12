@@ -15,7 +15,7 @@ export default defineConfig({
 		hmr: true,
 		proxy: {
 			'/api': { // 获取请求中带 /api 的请求
-			  target: 'http://localhost:9100',  // 后台服务器的源
+			  target: 'http://localhost:9101',  // 后台服务器的源
 			  changeOrigin: true,   // 修改源
 			  rewrite: (path) => path.replace(/^\/api/, "")   //  /api 替换为空字符串
 			}

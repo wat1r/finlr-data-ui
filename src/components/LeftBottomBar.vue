@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>Dynamic Data & Time Axis</div>
+        <div>Muscles & Time Axis</div>
         <div ref="target" class="w-full h-full"></div>
     </div>
 </template>
@@ -8,6 +8,7 @@
 <script setup>
     import {onMounted, ref, watch} from 'vue'
     import * as echarts from 'echarts'
+    import {getDataLeftBottom} from '@/api/visualization.js'
 
     const props = defineProps({
         data: {
@@ -16,40 +17,27 @@
         }
     })
 
-    console.log("----------------LeftBottomBar-----------------")
 
     const target = ref(null)
     let mChart = null
-
-
-
-    // let _rawData = props.data
-    // console.log("leftBottomBar->_rawData:", _rawData)
-
-    // function randomData() {
-    //     now = new Date(+now + oneDay);
-    //     value = value + Math.random() * 21 - 10;
-    //     return {
-    //         name: now.toString(),
-    //         value: [
-    //             [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'),
-    //             Math.round(value)
-    //         ]
-    //     };
-    // }
 
     let data = [];
     let now = new Date(1997, 9, 3);
     let oneDay = 24 * 3600 * 1000;
     let value = Math.random() * 1000;
     data = props.data
-    // console.log("data->>" + data)
+    console.log("init:", data)
 
-    // for (var i = 0; i < 1000; i++) {
-    //     data.push(randomData());
-    // }
 
-    // console.log("data->", data)
+    const leftBottom = ref(null)
+
+    const leftBottomData = async () => {
+        leftBottom.value = await getDataLeftBottom()
+        console.log("------------D4----------")
+        console.log(leftBottom)
+        data = leftBottom.value.leftBottomData
+    }
+    console.log("----------------LeftBottomBar-----------------")
 
     onMounted(() => {
         mChart = echarts.init(target.value)
@@ -68,12 +56,11 @@
                     params = params[0];
                     // console.log("params:", params)
                     var date = new Date(params.name);
+
                     return (
-                        date.getDate() +
-                        '/' +
-                        (date.getMonth() + 1) +
-                        '/' +
-                        date.getFullYear() +
+                        (date.getMonth() + 1) + "-" +
+                        date.getDate() + " " +
+                        date.getHours() + ":" + date.getMinutes() +
                         ' : ' +
                         params.value[1]
                     );
@@ -109,10 +96,8 @@
     }
 
     setInterval(function () {
-        // for (var i = 0; i < 5; i++) {
-        //     data.shift();
-        //     // data.push(randomData());
-        // }
+        leftBottomData()
+
         mChart.setOption({
             series: [
                 {
@@ -120,11 +105,11 @@
                 }
             ]
         });
-    }, 100);
+    }, 5000);
 
     // 监听数据的变化，重新渲染图表
     watch(
-        () => props.data,
+        () => data,
         () => {
             renderChart()
         }

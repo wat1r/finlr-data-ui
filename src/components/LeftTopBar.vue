@@ -9,6 +9,21 @@
     import {onMounted, ref, watch} from 'vue'
     import * as echarts from 'echarts'
 
+    import {getDataLeftTop} from '@/api/visualization.js'
+
+
+    const leftTop = ref(null)
+
+    let data = [];
+
+    const leftTopData = async () => {
+        leftTop.value = await getDataLeftTop()
+        console.log("------------D2----------")
+        console.log(leftTop)
+        data = leftTop.value.leftTopData.vals
+    }
+
+
     const props = defineProps({
         data: {
             type: Object,
@@ -18,10 +33,10 @@
 
     // 获取 dom 实例
     const target = ref(null)
-    let data = [];
+
     console.log("----------------LeftTopBar-----------------")
     console.log(props.data)
-    data = props.data.vals;
+    // data = props.data.vals;
     let yAxis = props.data.yAxis;
     // for (let i = 0; i < 5; ++i) {
     //     data.push(Math.round(Math.random() * 200));
@@ -76,13 +91,8 @@
     }
 
     function run() {
-        for (var i = 0; i < data.length; ++i) {
-            if (Math.random() > 0.9) {
-                data[i] += Math.round(Math.random() * 2000);
-            } else {
-                data[i] += Math.round(Math.random() * 200);
-            }
-        }
+        leftTopData()
+
         mChart.setOption({
             series: [
                 {
@@ -103,7 +113,7 @@
 
     // 监听数据的变化，重新渲染图表
     watch(
-        () => props.data,
+        () => data,
         () => {
             renderChart()
         }

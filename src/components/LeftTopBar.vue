@@ -15,12 +15,18 @@
     const leftTop = ref(null)
 
     let data = [];
+    let vals = new Array(5).fill(0)
 
     const leftTopData = async () => {
         leftTop.value = await getDataLeftTop()
         console.log("------------D2----------")
         console.log(leftTop)
-        data = leftTop.value.leftTopData.vals
+        let srcVals = leftTop.value.leftTopData.vals;
+        for (let i = 0; i < srcVals.length; i++) {
+            vals[i] += srcVals[i]
+        }
+        console.log("vals:" + vals)
+        // data = leftTop.value.leftTopData.vals
     }
 
 
@@ -38,9 +44,6 @@
     console.log(props.data)
     // data = props.data.vals;
     let yAxis = props.data.yAxis;
-    // for (let i = 0; i < 5; ++i) {
-    //     data.push(Math.round(Math.random() * 200));
-    // }
     // echarts 实例变量
     let mChart = null
     // 在 mounted 生命周期之后，实例化 echarts
@@ -70,7 +73,7 @@
                     realtimeSort: true,
                     name: 'X',
                     type: 'bar',
-                    data: data,
+                    data: vals,
                     label: {
                         show: true,
                         position: 'right',
@@ -97,7 +100,7 @@
             series: [
                 {
                     type: 'bar',
-                    data
+                    data: vals
                 }
             ]
         });
@@ -113,7 +116,7 @@
 
     // 监听数据的变化，重新渲染图表
     watch(
-        () => data,
+        () => vals,
         () => {
             renderChart()
         }

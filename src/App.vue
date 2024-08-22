@@ -12,8 +12,9 @@
             <RightTopBar class="h-1/2 box-border pb-1  mr-2 md-2 bg-opacity-50 bg-slate-800" v-if="rightTop"
                          :data="rightTop.serverData"/>
             <!-- 环形资源站比图 -->
-            <RightBottomBar class="h-1/2 box-border pb-1  mr-2 mt-2 bg-opacity-50 bg-slate-800"
-                            :data="data.abnormalData"/>
+            <RightBottomBar class="h-1/2 box-border pb-1  mr-2 mt-2 bg-opacity-50 bg-slate-800" v-if="rightBottom"
+                            :data="rightBottom.rightBottomData"/>
+
         </div>
     </div>
 </template>
@@ -68,7 +69,7 @@
     const rightBottomData = async () => {
         rightBottom.value = await getDataRightBottom()
         console.log("------------D4----------")
-        console.log(leftBottom)
+        console.log(rightBottom)
     }
 
 

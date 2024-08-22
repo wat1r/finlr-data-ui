@@ -28,47 +28,56 @@
     import RightBottomBar from './components/RightBottomBar.vue'
 
     import {ref} from 'vue'
-    import {getDataLeftBottom, getDataLeftTop, getDataRightTop, getDataTotal} from '@/api/visualization.js'
+    import {getDataLeftBottom, getDataLeftTop, getDataRightTop, getDataRightBottom, getDataTotal} from '@/api/visualization.js'
 
 
     const data = ref(null)
     const rightTop = ref(null)
     const leftTop = ref(null)
     const leftBottom = ref(null)
-
+    const rightBottom = ref(null)
 
     const loadData = async () => {
         data.value = await getDataTotal()
         console.log(data.value)
         console.log(data.value.relationData)
-        console.log("------------D1----------")
+        console.log("------------D0----------")
 
     }
 
     const leftTopData = async () => {
         leftTop.value = await getDataLeftTop()
-        console.log("------------D2----------")
+        console.log("------------D1----------")
         console.log(leftTop)
     }
 
 
     const rightTopData = async () => {
         rightTop.value = await getDataRightTop()
-        console.log("------------D3----------")
+        console.log("------------D2----------")
         console.log(rightTop)
     }
 
 
     const leftBottomData = async () => {
         leftBottom.value = await getDataLeftBottom()
+        console.log("------------D3----------")
+        console.log(leftBottom)
+    }
+
+    const rightBottomData = async () => {
+        rightBottom.value = await getDataRightBottom()
         console.log("------------D4----------")
         console.log(leftBottom)
     }
+
 
     loadData()
     leftTopData()
     rightTopData()
     leftBottomData()
+    rightBottomData()
+
 
 
     setInterval(() => {

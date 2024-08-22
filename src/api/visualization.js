@@ -35,3 +35,11 @@ export const getDataRightTop = () => {
         method: "post"
     })
 }
+
+export const getDataRightBottom = () => {
+    console.log('--------getDataRightBottom--------')
+    return request({
+        url: '/finlr/data/rightBottom',
+        method: "post"
+    })
+}

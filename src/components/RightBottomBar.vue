@@ -40,26 +40,26 @@ const renderChart = () => {
         source: _rawData,
       },
       {
-        id: "拉伸牵张幅度数据展示",
+        id: "拉伸牵张幅度",
         fromDatasetId: "dataset_raw",
         transform: {
           type: "filter",
           config: {
             and: [
-              { dimension: "Time", "!=": "2024-08-23" },
+              { dimension: "Time", "!=": "" },
               { dimension: "Item", "=": "拉伸牵张幅度" },
             ],
           },
         },
       },
       {
-        id: "位移速度数据展示",
+        id: "位移速度",
         fromDatasetId: "dataset_raw",
         transform: {
           type: "filter",
           config: {
             and: [
-              { dimension: "Time", "!=": "2024-08-23" },
+              { dimension: "Time", "!=": "" },
               { dimension: "Item", "=": "位移速度" },
             ],
           },
@@ -72,6 +72,12 @@ const renderChart = () => {
     tooltip: {
       trigger: "axis",
     },
+    legend: {
+      data: ["拉伸牵张幅度", "位移速度"],
+      textStyle: {
+            color: 'green' 
+        }
+    },
     xAxis: {
       type: "category",
       nameLocation: "middle",
@@ -82,7 +88,8 @@ const renderChart = () => {
     series: [
       {
         type: "line",
-        datasetId: "拉伸牵张幅度数据展示",
+        name: "拉伸牵张幅度",
+        datasetId: "拉伸牵张幅度",
         showSymbol: false,
         encode: {
           x: "Time",
@@ -93,7 +100,8 @@ const renderChart = () => {
       },
       {
         type: "line",
-        datasetId: "位移速度数据展示",
+        name: "位移速度",
+        datasetId: "位移速度",
         showSymbol: false,
         encode: {
           x: "Time",

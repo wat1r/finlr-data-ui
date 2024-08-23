@@ -112,6 +112,9 @@ const renderChart = () => {
     },
     legend: {
       data: ["EulerX", "EulerY", "EulerZ", "UnknownA", "UnknownB"],
+      textStyle: {
+            color: 'green' 
+        }
     },
     xAxis: {
       type: "category",

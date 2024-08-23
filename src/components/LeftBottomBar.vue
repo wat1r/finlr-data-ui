@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>Muscles & Time Axis</div>
+        <div>肌群肌力</div>
         <div ref="target" class="w-full h-full"></div>
     </div>
 </template>

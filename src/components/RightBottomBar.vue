@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>【测试图表】</div>
+    <div>拉伸牵张幅度/位移速度</div>
     <div ref="target" class="w-full h-full"></div>
   </div>
 </template>
@@ -40,34 +40,34 @@ const renderChart = () => {
         source: _rawData,
       },
       {
-        id: "dataset_since_1950_of_germany",
+        id: "拉伸牵张幅度数据展示",
         fromDatasetId: "dataset_raw",
         transform: {
           type: "filter",
           config: {
             and: [
-              { dimension: "Year", gte: 1950 },
-              { dimension: "Country", "=": "Germany" },
+              { dimension: "Time", "!=": "2024-08-23" },
+              { dimension: "Item", "=": "拉伸牵张幅度" },
             ],
           },
         },
       },
       {
-        id: "dataset_since_1950_of_france",
+        id: "位移速度数据展示",
         fromDatasetId: "dataset_raw",
         transform: {
           type: "filter",
           config: {
             and: [
-              { dimension: "Year", gte: 1950 },
-              { dimension: "Country", "=": "France" },
+              { dimension: "Time", "!=": "2024-08-23" },
+              { dimension: "Item", "=": "位移速度" },
             ],
           },
         },
       },
     ],
     title: {
-      text: "Income of Germany and France since 1950",
+      
     },
     tooltip: {
       trigger: "axis",
@@ -77,29 +77,29 @@ const renderChart = () => {
       nameLocation: "middle",
     },
     yAxis: {
-      name: "Income",
+      name: "Value",
     },
     series: [
       {
         type: "line",
-        datasetId: "dataset_since_1950_of_germany",
+        datasetId: "拉伸牵张幅度数据展示",
         showSymbol: false,
         encode: {
-          x: "Year",
-          y: "Income",
-          itemName: "Year",
-          tooltip: ["Income"],
+          x: "Time",
+          y: "Value",
+          itemName: "Time",
+          tooltip: ["Value"],
         },
       },
       {
         type: "line",
-        datasetId: "dataset_since_1950_of_france",
+        datasetId: "位移速度数据展示",
         showSymbol: false,
         encode: {
-          x: "Year",
-          y: "Income",
-          itemName: "Year",
-          tooltip: ["Income"],
+          x: "Time",
+          y: "Value",
+          itemName: "Time",
+          tooltip: ["Value"],
         },
       },
     ],

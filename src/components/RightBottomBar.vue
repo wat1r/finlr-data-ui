@@ -47,7 +47,7 @@ const renderChart = () => {
           config: {
             and: [
               { dimension: "Time", "!=": "" },
-              { dimension: "Item", "=": "拉伸牵张幅度" },
+              { dimension: "Item", "=": "ItemA" },
             ],
           },
         },
@@ -60,7 +60,7 @@ const renderChart = () => {
           config: {
             and: [
               { dimension: "Time", "!=": "" },
-              { dimension: "Item", "=": "位移速度" },
+              { dimension: "Item", "=": "ItemB" },
             ],
           },
         },

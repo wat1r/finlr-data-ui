@@ -66,17 +66,15 @@ const renderChart = () => {
         },
       },
     ],
-    title: {
-      
-    },
+    title: {},
     tooltip: {
       trigger: "axis",
     },
     legend: {
       data: ["拉伸牵张幅度", "位移速度"],
       textStyle: {
-            color: 'green' 
-        }
+        color: "green",
+      },
     },
     xAxis: {
       type: "category",
@@ -88,6 +86,13 @@ const renderChart = () => {
     series: [
       {
         type: "line",
+        lineStyle: {
+          width: 3,
+          shadowColor: "rgba(0,0,0,0.3)",
+          color:'#E49516',
+          shadowBlur: 10,
+          shadowOffsetY: 8,
+        },
         name: "拉伸牵张幅度",
         datasetId: "拉伸牵张幅度",
         showSymbol: false,
@@ -100,6 +105,12 @@ const renderChart = () => {
       },
       {
         type: "line",
+        lineStyle: {
+          width: 3,
+          shadowColor: "rgba(0,0,0,0.3)",
+          shadowBlur: 10,
+          shadowOffsetY: 8,
+        },
         name: "位移速度",
         datasetId: "位移速度",
         showSymbol: false,

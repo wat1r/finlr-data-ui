@@ -74,15 +74,21 @@
 
 
     loadData()
-    leftTopData()
     rightTopData()
+    leftTopData()
     leftBottomData()
     rightBottomData()
 
 
+    
+    setInterval(() => {
+        rightTopData()
+    }, 3000)
 
     setInterval(() => {
         leftBottomData()
     }, 3000)
+
+
 
 </script>

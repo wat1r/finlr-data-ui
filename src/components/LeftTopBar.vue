@@ -40,8 +40,7 @@ const renderChart = () => {
         source: _rawData,
       },
       {
-        id: "EulerX",
-        title: "内收角度",
+        id: "内收角度",
         fromDatasetId: "dataset_raw",
         transform: {
           type: "filter",
@@ -54,8 +53,7 @@ const renderChart = () => {
         },
       },
       {
-        id: "EulerY",
-        title: "伸展角度",
+        id: "伸展角度",
         fromDatasetId: "dataset_raw",
         transform: {
           type: "filter",
@@ -68,8 +66,7 @@ const renderChart = () => {
         },
       },
       {
-        id: "EulerZ",
-        title: "屈曲角度",
+        id: "屈曲角度",
         fromDatasetId: "dataset_raw",
         transform: {
           type: "filter",
@@ -81,43 +78,16 @@ const renderChart = () => {
           },
         },
       },
-      // {
-      //   id: "UnknownA",
-      //   fromDatasetId: "dataset_raw",
-      //   transform: {
-      //     type: "filter",
-      //     config: {
-      //       and: [
-      //         { dimension: "Time", "!=": "" },
-      //         { dimension: "Item", "=": "UnknownA" },
-      //       ],
-      //     },
-      //   },
-      // },
-      // {
-      //   id: "UnknownB",
-      //   fromDatasetId: "dataset_raw",
-      //   transform: {
-      //     type: "filter",
-      //     config: {
-      //       and: [
-      //         { dimension: "Time", "!=": "" },
-      //         { dimension: "Item", "=": "UnknownB" },
-      //       ],
-      //     },
-      //   },
-      // },
     ],
     title: {},
     tooltip: {
       trigger: "axis",
     },
     legend: {
-      data: ["EulerX", "EulerY", "EulerZ"],
-      // data: ["EulerX", "EulerY", "EulerZ", "UnknownA", "UnknownB"],
+      data: ["内收角度", "伸展角度", "屈曲角度"],
       textStyle: {
-            color: 'green' 
-        }
+        color: "green",
+      },
     },
     xAxis: {
       type: "category",
@@ -129,8 +99,14 @@ const renderChart = () => {
     series: [
       {
         type: "line",
-        name: "EulerX",
-        datasetId: "EulerX",
+        lineStyle: {
+          width: 3,
+          shadowColor: "rgba(0,0,0,0.3)",
+          shadowBlur: 10,
+          shadowOffsetY: 8,
+        },
+        name: "内收角度",
+        datasetId: "内收角度",
         showSymbol: false,
         encode: {
           x: "Time",
@@ -141,8 +117,14 @@ const renderChart = () => {
       },
       {
         type: "line",
-        name: "EulerY",
-        datasetId: "EulerY",
+        lineStyle: {
+          width: 3,
+          shadowColor: "rgba(0,0,0,0.3)",
+          shadowBlur: 10,
+          shadowOffsetY: 8,
+        },
+        name: "伸展角度",
+        datasetId: "伸展角度",
         showSymbol: false,
         encode: {
           x: "Time",
@@ -153,8 +135,14 @@ const renderChart = () => {
       },
       {
         type: "line",
-        name: "EulerZ",
-        datasetId: "EulerZ",
+        lineStyle: {
+          width: 3,
+          shadowColor: "rgba(0,0,0,0.3)",
+          shadowBlur: 10,
+          shadowOffsetY: 8,
+        },
+        name: "屈曲角度",
+        datasetId: "屈曲角度",
         showSymbol: false,
         encode: {
           x: "Time",
@@ -163,30 +151,6 @@ const renderChart = () => {
           tooltip: ["Value"],
         },
       },
-      // {
-      //   type: "line",
-      //   name: "UnknownA",
-      //   datasetId: "UnknownA",
-      //   showSymbol: false,
-      //   encode: {
-      //     x: "Time",
-      //     y: "Value",
-      //     itemName: "Time",
-      //     tooltip: ["Value"],
-      //   },
-      // },
-      // {
-      //   type: "line",
-      //   name: "UnknownB",
-      //   datasetId: "UnknownB",
-      //   showSymbol: false,
-      //   encode: {
-      //     x: "Time",
-      //     y: "Value",
-      //     itemName: "Time",
-      //     tooltip: ["Value"],
-      //   },
-      // },
     ],
   };
 

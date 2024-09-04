@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>欧拉角度</div>
+    <div>关节角度</div>
     <div ref="target" class="w-full h-full"></div>
   </div>
 </template>
@@ -41,7 +41,7 @@ const renderChart = () => {
       },
       {
         id: "EulerX",
-        title: "EulerX",
+        title: "内收角度",
         fromDatasetId: "dataset_raw",
         transform: {
           type: "filter",
@@ -55,6 +55,7 @@ const renderChart = () => {
       },
       {
         id: "EulerY",
+        title: "伸展角度",
         fromDatasetId: "dataset_raw",
         transform: {
           type: "filter",
@@ -68,6 +69,7 @@ const renderChart = () => {
       },
       {
         id: "EulerZ",
+        title: "屈曲角度",
         fromDatasetId: "dataset_raw",
         transform: {
           type: "filter",

@@ -79,39 +79,40 @@ const renderChart = () => {
           },
         },
       },
-      {
-        id: "UnknownA",
-        fromDatasetId: "dataset_raw",
-        transform: {
-          type: "filter",
-          config: {
-            and: [
-              { dimension: "Time", "!=": "" },
-              { dimension: "Item", "=": "UnknownA" },
-            ],
-          },
-        },
-      },
-      {
-        id: "UnknownB",
-        fromDatasetId: "dataset_raw",
-        transform: {
-          type: "filter",
-          config: {
-            and: [
-              { dimension: "Time", "!=": "" },
-              { dimension: "Item", "=": "UnknownB" },
-            ],
-          },
-        },
-      },
+      // {
+      //   id: "UnknownA",
+      //   fromDatasetId: "dataset_raw",
+      //   transform: {
+      //     type: "filter",
+      //     config: {
+      //       and: [
+      //         { dimension: "Time", "!=": "" },
+      //         { dimension: "Item", "=": "UnknownA" },
+      //       ],
+      //     },
+      //   },
+      // },
+      // {
+      //   id: "UnknownB",
+      //   fromDatasetId: "dataset_raw",
+      //   transform: {
+      //     type: "filter",
+      //     config: {
+      //       and: [
+      //         { dimension: "Time", "!=": "" },
+      //         { dimension: "Item", "=": "UnknownB" },
+      //       ],
+      //     },
+      //   },
+      // },
     ],
     title: {},
     tooltip: {
       trigger: "axis",
     },
     legend: {
-      data: ["EulerX", "EulerY", "EulerZ", "UnknownA", "UnknownB"],
+      data: ["EulerX", "EulerY", "EulerZ"],
+      // data: ["EulerX", "EulerY", "EulerZ", "UnknownA", "UnknownB"],
       textStyle: {
             color: 'green' 
         }
@@ -160,30 +161,30 @@ const renderChart = () => {
           tooltip: ["Value"],
         },
       },
-      {
-        type: "line",
-        name: "UnknownA",
-        datasetId: "UnknownA",
-        showSymbol: false,
-        encode: {
-          x: "Time",
-          y: "Value",
-          itemName: "Time",
-          tooltip: ["Value"],
-        },
-      },
-      {
-        type: "line",
-        name: "UnknownB",
-        datasetId: "UnknownB",
-        showSymbol: false,
-        encode: {
-          x: "Time",
-          y: "Value",
-          itemName: "Time",
-          tooltip: ["Value"],
-        },
-      },
+      // {
+      //   type: "line",
+      //   name: "UnknownA",
+      //   datasetId: "UnknownA",
+      //   showSymbol: false,
+      //   encode: {
+      //     x: "Time",
+      //     y: "Value",
+      //     itemName: "Time",
+      //     tooltip: ["Value"],
+      //   },
+      // },
+      // {
+      //   type: "line",
+      //   name: "UnknownB",
+      //   datasetId: "UnknownB",
+      //   showSymbol: false,
+      //   encode: {
+      //     x: "Time",
+      //     y: "Value",
+      //     itemName: "Time",
+      //     tooltip: ["Value"],
+      //   },
+      // },
     ],
   };
 

@@ -55,12 +55,10 @@
                 formatter: function (params) {
                     params = params[0];
                     // console.log("params:", params)
-                    var date = new Date(params.name);
+                    var date = params.name;
 
                     return (
-                        (date.getMonth() + 1) + "-" +
-                        date.getDate() + " " +
-                        date.getHours() + ":" + date.getMinutes() +
+                        date +
                         ' : ' +
                         params.value[1]
                     );

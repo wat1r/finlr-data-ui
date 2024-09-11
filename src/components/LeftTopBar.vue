@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>关节角度</div>
+    <div>肌群肌力</div>
     <div ref="target" class="w-full h-full"></div>
   </div>
 </template>
@@ -15,8 +15,16 @@ const props = defineProps({
     required: true,
   },
 });
-let isFull = false;
-console.log("-------------1.1-------------");
+
+
+let data = [];
+let now = new Date(1997, 9, 3);
+let oneDay = 24 * 3600 * 1000;
+let value = Math.random() * 1000;
+data = props.data;
+console.log("init:", data);
+
+console.log("-------------1.1:[pic1/肌群肌力]-------------");
 
 let _rawData = props.data.leftTop;
 
@@ -40,40 +48,14 @@ const renderChart = () => {
         source: _rawData,
       },
       {
-        id: "内收角度",
+        id: "肌群肌力",
         fromDatasetId: "dataset_raw",
         transform: {
           type: "filter",
           config: {
             and: [
               { dimension: "Time", "!=": "" },
-              { dimension: "Item", "=": "EulerX" },
-            ],
-          },
-        },
-      },
-      {
-        id: "伸展角度",
-        fromDatasetId: "dataset_raw",
-        transform: {
-          type: "filter",
-          config: {
-            and: [
-              { dimension: "Time", "!=": "" },
-              { dimension: "Item", "=": "EulerY" },
-            ],
-          },
-        },
-      },
-      {
-        id: "屈曲角度",
-        fromDatasetId: "dataset_raw",
-        transform: {
-          type: "filter",
-          config: {
-            and: [
-              { dimension: "Time", "!=": "" },
-              { dimension: "Item", "=": "EulerZ" },
+              { dimension: "Item", "=": "Muscle" },
             ],
           },
         },
@@ -84,9 +66,11 @@ const renderChart = () => {
       trigger: "axis",
     },
     legend: {
-      data: ["内收角度", "伸展角度", "屈曲角度"],
+      data: ["肌群肌力"],
       textStyle: {
-        color: "green",
+        fontSize: 14,
+        color: "#ff6633",
+        padding: [0, 0, 0, 5], 
       },
     },
     xAxis: {
@@ -102,47 +86,12 @@ const renderChart = () => {
         lineStyle: {
           width: 3,
           shadowColor: "rgba(0,0,0,0.3)",
+          color:'#E44C4C',
           shadowBlur: 10,
           shadowOffsetY: 8,
         },
-        name: "内收角度",
-        datasetId: "内收角度",
-        showSymbol: false,
-        encode: {
-          x: "Time",
-          y: "Value",
-          itemName: "Time",
-          tooltip: ["Value"],
-        },
-      },
-      {
-        type: "line",
-        lineStyle: {
-          width: 3,
-          shadowColor: "rgba(0,0,0,0.3)",
-          shadowBlur: 10,
-          shadowOffsetY: 8,
-        },
-        name: "伸展角度",
-        datasetId: "伸展角度",
-        showSymbol: false,
-        encode: {
-          x: "Time",
-          y: "Value",
-          itemName: "Time",
-          tooltip: ["Value"],
-        },
-      },
-      {
-        type: "line",
-        lineStyle: {
-          width: 3,
-          shadowColor: "rgba(0,0,0,0.3)",
-          shadowBlur: 10,
-          shadowOffsetY: 8,
-        },
-        name: "屈曲角度",
-        datasetId: "屈曲角度",
+        name: "肌群肌力",
+        datasetId: "肌群肌力",
         showSymbol: false,
         encode: {
           x: "Time",
@@ -157,13 +106,24 @@ const renderChart = () => {
   mChart.setOption(option);
 };
 
+
+// setInterval(function () {
+//   leftBottomData();
+
+//   mChart.setOption({
+//     series: [
+//       {
+//         data: data,
+//       },
+//     ],
+//   });
+// }, 5000);
+
 // 监听数据的变化，重新渲染图表
 watch(
-  () => props.data,
+  () => data,
   () => {
     renderChart();
   }
 );
 </script>
-
-<style lang="scss" scoped></style>

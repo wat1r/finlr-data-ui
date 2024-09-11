@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>肌群肌力</div>
+    <div>关节角度</div>
     <div ref="target" class="w-full h-full"></div>
   </div>
 </template>
@@ -8,7 +8,6 @@
 <script setup>
 import { onMounted, ref, watch } from "vue";
 import * as echarts from "echarts";
-import { getDataLeftBottom } from "@/api/visualization.js";
 
 const props = defineProps({
   data: {
@@ -16,101 +15,157 @@ const props = defineProps({
     required: true,
   },
 });
+let isFull = false;
+console.log("-------------1.3:[pic3/关节角度]-------------");
+
+let _rawData = props.data.leftBottom;
 
 const target = ref(null);
+console.log("---------------target:" + target);
 let mChart = null;
-
-let data = [];
-let now = new Date(1997, 9, 3);
-let oneDay = 24 * 3600 * 1000;
-let value = Math.random() * 1000;
-data = props.data;
-console.log("init:", data);
-
-const leftBottom = ref(null);
-
-const leftBottomData = async () => {
-  leftBottom.value = await getDataLeftBottom();
-  console.log("------------D4----------");
-  console.log(leftBottom);
-  data = leftBottom.value.leftBottomData;
-};
-console.log("----------------LeftBottomBar-----------------");
-
 onMounted(() => {
   mChart = echarts.init(target.value);
-  renderChart();
+  if (_rawData != null) {
+    renderChart(_rawData);
+  }
 });
 
+console.log("---------------_rawData:" + target);
+
 const renderChart = () => {
-  const options = {
-    title: {
-      // text: 'Dynamic Data & Time Axis'
-    },
+  const option = {
+    dataset: [
+      {
+        id: "dataset_raw",
+        source: _rawData,
+      },
+      {
+        id: "内收角度",
+        fromDatasetId: "dataset_raw",
+        transform: {
+          type: "filter",
+          config: {
+            and: [
+              { dimension: "Time", "!=": "" },
+              { dimension: "Item", "=": "EulerX" },
+            ],
+          },
+        },
+      },
+      {
+        id: "伸展角度",
+        fromDatasetId: "dataset_raw",
+        transform: {
+          type: "filter",
+          config: {
+            and: [
+              { dimension: "Time", "!=": "" },
+              { dimension: "Item", "=": "EulerY" },
+            ],
+          },
+        },
+      },
+      {
+        id: "屈曲角度",
+        fromDatasetId: "dataset_raw",
+        transform: {
+          type: "filter",
+          config: {
+            and: [
+              { dimension: "Time", "!=": "" },
+              { dimension: "Item", "=": "EulerZ" },
+            ],
+          },
+        },
+      },
+    ],
+    title: {},
     tooltip: {
       trigger: "axis",
-      formatter: function (params) {
-        params = params[0];
-        // console.log("params:", params)
-        var date = params.name;
-
-        return date + " : " + params.value[1];
-      },
-      axisPointer: {
-        animation: false,
+    },
+    legend: {
+      data: ["内收角度", "伸展角度", "屈曲角度"],
+      textStyle: {
+        fontSize: 14,
+        color: "#ff6633",
+        padding: [0, 0, 0, 5], 
       },
     },
     xAxis: {
-      type: "time",
-      splitLine: {
-        show: false,
-      },
+      type: "category",
+      nameLocation: "middle",
     },
     yAxis: {
-      type: "value",
-      boundaryGap: [0, "100%"],
-      splitLine: {
-        show: false,
-      },
+      name: "Value",
     },
     series: [
       {
-        name: "Fake Data",
         type: "line",
-
         lineStyle: {
           width: 3,
           shadowColor: "rgba(0,0,0,0.3)",
-          color:'#DD26DD',
           shadowBlur: 10,
           shadowOffsetY: 8,
         },
+        name: "内收角度",
+        datasetId: "内收角度",
         showSymbol: false,
-        data: data,
+        encode: {
+          x: "Time",
+          y: "Value",
+          itemName: "Time",
+          tooltip: ["Value"],
+        },
+      },
+      {
+        type: "line",
+        lineStyle: {
+          width: 3,
+          shadowColor: "rgba(0,0,0,0.3)",
+          shadowBlur: 10,
+          shadowOffsetY: 8,
+        },
+        name: "伸展角度",
+        datasetId: "伸展角度",
+        showSymbol: false,
+        encode: {
+          x: "Time",
+          y: "Value",
+          itemName: "Time",
+          tooltip: ["Value"],
+        },
+      },
+      {
+        type: "line",
+        lineStyle: {
+          width: 3,
+          shadowColor: "rgba(0,0,0,0.3)",
+          shadowBlur: 10,
+          shadowOffsetY: 8,
+        },
+        name: "屈曲角度",
+        datasetId: "屈曲角度",
+        showSymbol: false,
+        encode: {
+          x: "Time",
+          y: "Value",
+          itemName: "Time",
+          tooltip: ["Value"],
+        },
       },
     ],
   };
 
-  mChart.setOption(options);
+  mChart.setOption(option);
 };
-
-setInterval(function () {
-  leftBottomData();
-
-  mChart.setOption({
-    series: [
-      {
-        data: data,
-      },
-    ],
-  });
-}, 5000);
 
 // 监听数据的变化，重新渲染图表
 watch(
-  () => data,
+  () => props.data,
   () => {
     renderChart();
   }
 );
 </script>
+
+<style lang="scss" scoped></style>

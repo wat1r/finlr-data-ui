@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>拉伸牵张幅度/位移速度</div>
+    <div>疲劳程度</div>
     <div ref="target" class="w-full h-full"></div>
   </div>
 </template>
@@ -8,6 +8,7 @@
 <script setup>
 import { onMounted, ref, watch } from "vue";
 import * as echarts from "echarts";
+import { getDataRightTop } from "@/api/visualization.js";
 
 const props = defineProps({
   data: {
@@ -15,8 +16,17 @@ const props = defineProps({
     required: true,
   },
 });
-let isFull = false;
-console.log("-------------1.1-------------");
+
+
+
+let data = [];
+let now = new Date(1997, 9, 3);
+let oneDay = 24 * 3600 * 1000;
+let value = Math.random() * 1000;
+data = props.data;
+console.log("init:", data);
+
+console.log("-------------1.4:[pic4/疲劳程度]-------------");
 
 let _rawData = props.data.rightBottom;
 
@@ -40,27 +50,14 @@ const renderChart = () => {
         source: _rawData,
       },
       {
-        id: "拉伸牵张幅度",
+        id: "疲劳程度",
         fromDatasetId: "dataset_raw",
         transform: {
           type: "filter",
           config: {
             and: [
               { dimension: "Time", "!=": "" },
-              { dimension: "Item", "=": "ItemA" },
-            ],
-          },
-        },
-      },
-      {
-        id: "位移速度",
-        fromDatasetId: "dataset_raw",
-        transform: {
-          type: "filter",
-          config: {
-            and: [
-              { dimension: "Time", "!=": "" },
-              { dimension: "Item", "=": "ItemB" },
+              { dimension: "Item", "=": "Fatigue" },
             ],
           },
         },
@@ -71,9 +68,11 @@ const renderChart = () => {
       trigger: "axis",
     },
     legend: {
-      data: ["拉伸牵张幅度", "位移速度"],
+      data: ["疲劳程度"],
       textStyle: {
-        color: "green",
+        fontSize: 14,
+        color: "#ff6633",
+        padding: [0, 0, 0, 5], 
       },
     },
     xAxis: {
@@ -89,30 +88,12 @@ const renderChart = () => {
         lineStyle: {
           width: 3,
           shadowColor: "rgba(0,0,0,0.3)",
-          color:'#E49516',
+          color:'#E44C4C',
           shadowBlur: 10,
           shadowOffsetY: 8,
         },
-        name: "拉伸牵张幅度",
-        datasetId: "拉伸牵张幅度",
-        showSymbol: false,
-        encode: {
-          x: "Time",
-          y: "Value",
-          itemName: "Time",
-          tooltip: ["Value"],
-        },
-      },
-      {
-        type: "line",
-        lineStyle: {
-          width: 3,
-          shadowColor: "rgba(0,0,0,0.3)",
-          shadowBlur: 10,
-          shadowOffsetY: 8,
-        },
-        name: "位移速度",
-        datasetId: "位移速度",
+        name: "疲劳程度",
+        datasetId: "疲劳程度",
         showSymbol: false,
         encode: {
           x: "Time",
@@ -127,13 +108,24 @@ const renderChart = () => {
   mChart.setOption(option);
 };
 
+
+// setInterval(function () {
+//   rightTopData();
+
+//   mChart.setOption({
+//     series: [
+//       {
+//         data: data,
+//       },
+//     ],
+//   });
+// }, 5000);
+
 // 监听数据的变化，重新渲染图表
 watch(
-  () => props.data,
+  () => data,
   () => {
     renderChart();
   }
 );
 </script>
-
-<style lang="scss" scoped></style>

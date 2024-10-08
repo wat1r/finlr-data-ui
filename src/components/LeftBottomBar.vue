@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>关节角度</div>
-    <div ref="target" class="w-full h-full"></div>
+    <div id="leftBottomId" ref="target" class="w-full h-full"></div>
   </div>
 </template>
 
@@ -155,6 +155,7 @@ const renderChart = () => {
       },
     ],
   };
+
 
   mChart.setOption(option);
 };

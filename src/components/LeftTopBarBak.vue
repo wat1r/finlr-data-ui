@@ -1,7 +1,6 @@
 <template>
     <div>
         <div>动态排序柱状图</div>
-        <div ref="target" class="w-full h-full"></div>
     </div>
 </template>
 
@@ -52,6 +51,8 @@
         // 渲染 echarts
         renderChart()
     })
+
+
 
     // 渲染图表
     const renderChart = () => {

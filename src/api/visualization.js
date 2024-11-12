@@ -11,11 +11,12 @@ export const getDataTotal = () => {
     })
 }
 
-export const getDataLeftTop = () => {
+export const getDataLeftTop = (params) => {
     console.log('--------getDataLeftTop--------')
     return request({
         url: '/finlr/data/leftTop',
-        method: "post"
+        method: "post",
+        data: params
     })
 }
 
@@ -41,5 +42,14 @@ export const getDataRightBottom = () => {
     return request({
         url: '/finlr/data/rightBottom',
         method: "post"
+    })
+}
+
+
+export const getDataUsers = () => {
+    console.log('--------getDataUsers--------')
+    return request({
+        url: '/finlr/data/users',
+        method: "get"
     })
 }

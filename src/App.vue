@@ -6,7 +6,7 @@
     <div class="flex-1 mt-2 p-1 flex flex-col">
       <!-- pic1:肌群肌力 -->
       <LeftTopBar
-        class="h-1/3 box-border pb-1 mr-2 md-2 bg-opacity-50 bg-slate-800"
+        class="h-1/2 box-border pb-1 mr-2 md-2 bg-opacity-50 bg-slate-800"
         v-if="leftTop"
         :data="leftTop.leftTopData"
       />
@@ -19,6 +19,23 @@
     </div>
 
     <div class="flex-1 bg-opacity-50 bg-slate-800 p-1 mt-2 flex flex-col">
+      <!-- 筛选用户的界面 -->
+      <div class="flex justify-end">
+        <select
+          v-model="selectedValue"
+          @change="changeUser"
+          style="width: 8%; color: #333; background-color: #CE961D"
+        >
+          <option
+            v-for="(item, index) in users"
+            :key="index"
+            :value="item.value"
+          >
+            {{ item.label }}
+          </option>
+        </select>
+      </div>
+
       <!-- pic2:拉伸牵张幅度/位移速度 -->
       <RightTopBar
         class="h-1/2 box-border pb-1 mr-2 md-2 bg-opacity-50 bg-slate-800"
@@ -31,18 +48,6 @@
         v-if="rightBottom"
         :data="rightBottom.rightBottomData"
       />
-    </div>
-
-    <div>
-      <select
-        v-model="selectedValue"
-        @change="changeUser"
-        style="width: 100%; color: #333; background-color: #f0f0f0"
-      >
-        <option v-for="(item, index) in users" :key="index" :value="item.value">
-          {{ item.label }}
-        </option>
-      </select>
     </div>
   </div>
 </template>
@@ -69,6 +74,7 @@ const leftTop = ref(null);
 const leftBottom = ref(null);
 const rightBottom = ref(null);
 const users = ref(null);
+let selectedValue = ref(null);
 
 const usersData = async () => {
   const t = await getDataUsers();
@@ -77,16 +83,12 @@ const usersData = async () => {
   console.log("------------usersData----------");
   console.log("------------00000000----------");
   console.log(users);
+  selectedValue = ref(users.value ? users.value[0].value : null);
+  changeUser(selectedValue);
+  console.log("before default value->selectedValue" + selectedValue);
 };
 
-usersData();
-// 使用 onMounted 钩子在组件挂载时调用 usersData 函数
-onMounted(usersData);
-
 console.log("before default value" + users);
-
-var selectedValue = ref(users.value ? users.value[0].value : null);
-console.log("before default value->selectedValue" + selectedValue);
 
 const loadData = async () => {
   data.value = await getDataTotal();
@@ -122,7 +124,9 @@ const rightBottomData = async (params) => {
 };
 
 const changeUser = async (e) => {
-  // rightBottom.value = await getDataRightBottom();
+  if (!selectedValue) {
+    // selectedValue = ref(users.value ? users.value[0].value : null);
+  }
   console.log("------------changeUser----------{}", e);
   console.log("selectedValue:", selectedValue.value);
   var _userId = selectedValue.value;
@@ -135,26 +139,15 @@ const changeUser = async (e) => {
   rightBottomData(params);
 };
 
-
-
 const params = {
   userId: "101",
 };
 
-loadData();
-// rightTopData(params);
-// leftTopData(params);
-// leftBottomData(params);
-// rightBottomData(params);
-changeUser();
-selectedValue = ref(users.value ? users.value[0].value : null);
-console.log("before default value->selectedValue" + selectedValue);
+usersData();
+// 使用 onMounted 钩子在组件挂载时调用 usersData 函数
+onMounted(loadData);
 
-// setInterval(() => {
-//   rightTopData();
-// }, 3000);
+// loadData();
 
-// setInterval(() => {
-//   leftBottomData();
-// }, 3000);
+// changeUser();
 </script>

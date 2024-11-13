@@ -34,9 +34,11 @@
     </div>
 
     <div>
-      <select v-model="selected" @change="changeUser" style="width: 100%">
-        <!-- 内联对象字面量 -->
-
+      <select
+        v-model="selectedValue"
+        @change="changeUser"
+        style="width: 100%; color: #333; background-color: #f0f0f0"
+      >
         <option v-for="(item, index) in users" :key="index" :value="item.value">
           {{ item.label }}
         </option>
@@ -51,7 +53,7 @@ import LeftBottomBar from "./components/LeftBottomBar.vue";
 import RightTopBar from "./components/RightTopBar.vue";
 import RightBottomBar from "./components/RightBottomBar.vue";
 
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import {
   getDataLeftBottom,
   getDataLeftTop,
@@ -68,6 +70,24 @@ const leftBottom = ref(null);
 const rightBottom = ref(null);
 const users = ref(null);
 
+const usersData = async () => {
+  const t = await getDataUsers();
+  console.log(t);
+  users.value = t.usersData;
+  console.log("------------usersData----------");
+  console.log("------------00000000----------");
+  console.log(users);
+};
+
+usersData();
+// 使用 onMounted 钩子在组件挂载时调用 usersData 函数
+onMounted(usersData);
+
+console.log("before default value" + users);
+
+var selectedValue = ref(users.value ? users.value[0].value : null);
+console.log("before default value->selectedValue" + selectedValue);
+
 const loadData = async () => {
   data.value = await getDataTotal();
   console.log(data.value);
@@ -78,68 +98,57 @@ const loadData = async () => {
 const leftTopData = async (params) => {
   leftTop.value = await getDataLeftTop(params);
   console.log("------------D1----------");
-  console.log("------------D1----------"+params);
+  console.log("------------D1----------" + params);
   console.log(leftTop);
 };
 
-const rightTopData = async () => {
-  rightTop.value = await getDataRightTop();
+const rightTopData = async (params) => {
+  rightTop.value = await getDataRightTop(params);
   console.log("------------D2----------");
   console.log(rightTop);
 };
 
-const leftBottomData = async () => {
+const leftBottomData = async (params) => {
   // console.log(e);
-  leftBottom.value = await getDataLeftBottom();
+  leftBottom.value = await getDataLeftBottom(params);
   console.log("------------D3----------");
   console.log(leftBottom);
 };
 
-const rightBottomData = async () => {
-  rightBottom.value = await getDataRightBottom();
+const rightBottomData = async (params) => {
+  rightBottom.value = await getDataRightBottom(params);
   console.log("------------D4----------");
   console.log(rightBottom);
 };
 
 const changeUser = async (e) => {
   // rightBottom.value = await getDataRightBottom();
-  console.log("------------changeUser----------");
+  console.log("------------changeUser----------{}", e);
+  console.log("selectedValue:", selectedValue.value);
+  var _userId = selectedValue.value;
   const params = {
-    userId: "10",
+    userId: _userId,
   };
   leftTopData(params);
-  // console.log(e);
-  // console.log(e.target.value);
-  // const t = e.target.value;
-  // leftBottomData(t);
+  leftBottomData(params);
+  rightTopData(params);
+  rightBottomData(params);
 };
 
-const usersData = async () => {
-  users.value = await getDataUsers();
-  console.log("------------usersData----------");
-  console.log("------------00000000----------");
-  console.log(users);
 
-  //   users.forEach((item, index) => {
-  //   // 可以访问外层的 `parentMessage`
-  //   // 而 `item` 和 `index` 只在这个作用域可用
-  //   // console.log(parentMessage, item.message, index)
-  //   console.log("------------00000000----------"+item);
-  // })
+
+const params = {
+  userId: "101",
 };
-
-// const params = {
-//   userId: "101",
-// };
 
 loadData();
-rightTopData();
-// leftTopData();
+// rightTopData(params);
 // leftTopData(params);
-leftBottomData();
-rightBottomData();
+// leftBottomData(params);
+// rightBottomData(params);
 changeUser();
-usersData();
+selectedValue = ref(users.value ? users.value[0].value : null);
+console.log("before default value->selectedValue" + selectedValue);
 
 // setInterval(() => {
 //   rightTopData();

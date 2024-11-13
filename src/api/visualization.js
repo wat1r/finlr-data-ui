@@ -21,27 +21,30 @@ export const getDataLeftTop = (params) => {
 }
 
 
-export const getDataLeftBottom = () => {
+export const getDataLeftBottom = (params) => {
     console.log('--------getDataLeftBottom--------')
     return request({
         url: '/finlr/data/leftBottom',
-        method: "post"
+        method: "post",
+        data: params
     })
 }
 
-export const getDataRightTop = () => {
+export const getDataRightTop = (params) => {
     console.log('--------getDataRightTop--------')
     return request({
         url: '/finlr/data/rightTop',
-        method: "post"
+        method: "post",
+        data: params
     })
 }
 
-export const getDataRightBottom = () => {
+export const getDataRightBottom = (params) => {
     console.log('--------getDataRightBottom--------')
     return request({
         url: '/finlr/data/rightBottom',
-        method: "post"
+        method: "post",
+        data: params
     })
 }
 

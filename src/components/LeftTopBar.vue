@@ -167,6 +167,7 @@ const renderChart = () => {
 watch(
   () => data,
   () => {
+    console.log('监听数据');
     renderChart();
   }
 );

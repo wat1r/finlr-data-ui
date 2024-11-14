@@ -1,15 +1,8 @@
 import request from '@/utils/request.js'
 
-/**
- * 数据可视化
- */
-export const getDataTotal = () => {
-    console.log('--------getDataTotal--------')
-    return request({
-        url: '/finlr/data/total',
-        method: "post"
-    })
-}
+
+
+
 
 export const getDataLeftTop = (params) => {
     console.log('--------getDataLeftTop--------')
